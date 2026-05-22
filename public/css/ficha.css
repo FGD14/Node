@@ -1,0 +1,103 @@
+/* ============================================================
+   FICHA DE ALUNO — Frutiger Aero
+============================================================ */
+.ficha-wrap { max-width: 860px; margin: 0 auto; }
+
+.ficha-card {
+  background: linear-gradient(145deg, rgba(255,255,255,0.90), rgba(218,241,255,0.78));
+  border: 1px solid rgba(110,172,230,0.28);
+  border-radius: 22px;
+  overflow: hidden;
+  box-shadow: 0 12px 36px rgba(40,110,180,0.13);
+  backdrop-filter: blur(12px);
+}
+
+.ficha-head {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  padding: 26px 28px;
+  border-bottom: 1px solid rgba(110,172,230,0.18);
+  background: linear-gradient(135deg, rgba(255,255,255,0.60), rgba(210,240,255,0.50));
+}
+
+.ficha-photo-wrap { position: relative; flex-shrink: 0; }
+.ficha-photo-wrap img {
+  width: 88px; height: 88px; border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid rgba(42,136,214,0.35);
+  box-shadow: 0 6px 20px rgba(42,136,214,0.18);
+}
+.ficha-photo-badge {
+  position: absolute;
+  bottom: 2px; right: 2px;
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  background: #3adb76;
+  border: 3px solid #fff;
+  box-shadow: 0 2px 6px rgba(58,219,118,0.50);
+}
+
+.ficha-head-info { flex: 1; }
+.ficha-name { margin: 0 0 4px; font-size: 22px; font-weight: 900; color: #0e2a45; }
+.ficha-estado {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  border: 1px solid transparent;
+}
+.ficha-estado.pendente  { background: rgba(230,150,20,0.12); color: #7a4800; border-color: rgba(220,140,20,0.28); }
+.ficha-estado.aprovado  { background: rgba(20,160,80,0.10);  color: #0a4a20; border-color: rgba(20,160,80,0.26); }
+.ficha-estado.rejeitado { background: rgba(200,40,40,0.09);  color: #6e1010; border-color: rgba(200,40,40,0.22); }
+
+.ficha-body { padding: 0; }
+.ficha-section { padding: 20px 28px; }
+.ficha-section + .ficha-section { border-top: 1px solid rgba(110,172,230,0.14); }
+.ficha-section-title {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: #4a7aa0;
+  margin: 0 0 14px;
+}
+
+.ficha-row {
+  display: flex;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  transition: background 0.16s;
+}
+.ficha-row:hover { background: rgba(200,232,255,0.30); }
+.ficha-row + .ficha-row { border-top: 1px solid rgba(110,172,230,0.09); }
+
+.ficha-label-icon {
+  width: 32px; height: 32px; border-radius: 9px;
+  background: rgba(200,232,255,0.50);
+  border: 1px solid rgba(110,172,230,0.22);
+  display: grid; place-items: center;
+  font-size: 14px; flex-shrink: 0;
+}
+.ficha-label { font-size: 11px; font-weight: 700; color: #4a7aa0; margin-bottom: 2px; }
+.ficha-value { font-size: 14px; font-weight: 600; color: #0e2a45; }
+
+.ficha-footer {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  padding: 18px 28px;
+  border-top: 1px solid rgba(110,172,230,0.18);
+  background: rgba(255,255,255,0.35);
+  flex-wrap: wrap;
+}
+
+.ficha-empty {
+  padding: 40px;
+  text-align: center;
+  color: #4a7aa0;
+}
+.ficha-empty-title { font-size: 17px; font-weight: 700; color: #2c5078; margin-bottom: 10px; }

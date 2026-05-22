@@ -1,0 +1,42 @@
+<%- include('../partials/head', { title: 'Planos de Estudo — IPCA Gestão', extraCss: ['form-gestor.css'] }) %>
+<body>
+<div class="wrapper">
+    <%- include('../partials/sidebar', { active: 'planos' }) %>
+    <main class="main">
+        <div class="page-header">
+            <div class="page-title"><h1>Planos de Estudo</h1><p>Estrutura curricular por curso</p></div>
+            <a href="/gestor/planos/novo" class="btn-add">+ Novo Plano</a>
+        </div>
+        <% if (msg === 'adicionado') { %><div class="alert alert-success" style="margin-bottom:20px;">Plano adicionado!</div><% } %>
+        <% const cursos = Object.keys(grouped); %>
+        <% if (cursos.length === 0) { %>
+            <div class="card"><div class="empty-state"><p>Nenhum plano encontrado.</p></div></div>
+        <% } else { %>
+            <% cursos.forEach(curso => { %>
+            <div class="card" style="margin-bottom:16px;">
+                <div class="section-header">
+                    <h3><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent2)" stroke-width="2" style="margin-right:8px;vertical-align:middle;"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/></svg><%= curso %></h3>
+                    <span class="chip chip-blue"><%= grouped[curso].length %> disciplinas</span>
+                </div>
+                <div class="table-wrap">
+                    <table>
+                        <thead><tr><th>Disciplina</th><th>Ano</th><th>Semestre</th><th>Ação</th></tr></thead>
+                        <tbody>
+                        <% grouped[curso].forEach(p => { %>
+                        <tr>
+                            <td><span class="chip chip-green"><%= p.disciplina_id?.nome %></span></td>
+                            <td><%= p.ano %>º</td>
+                            <td><%= p.semestre %>º</td>
+                            <td><a href="/gestor/planos/apagar/<%= p.curso_id._id %>/<%= p.disciplina_id._id %>" class="btn-delete" onclick="return confirm('Remover esta disciplina do plano?')">Remover</a></td>
+                        </tr>
+                        <% }) %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <% }) %>
+        <% } %>
+    </main>
+</div>
+</body>
+</html>

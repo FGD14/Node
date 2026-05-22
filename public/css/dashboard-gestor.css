@@ -1,0 +1,8 @@
+@import url("dashboard-core.css");
+.dashboard-gestor .dashboard-card::before { background: linear-gradient(90deg, #22b573, #0ea561); }
+.dashboard-gestor .dashboard-panel h3 { color: #0a4a20; }
+.dashboard-gestor .dashboard-badge { color: #0a4a20; border-color: rgba(20,160,80,0.30); }
+.dashboard-gestor .dashboard-card-value {
+  background: linear-gradient(135deg, #12a058, #22c57a);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}

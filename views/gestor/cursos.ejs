@@ -1,0 +1,46 @@
+<%- include('../partials/head', { title: 'Cursos — IPCA Gestão', extraCss: ['form-gestor.css'] }) %>
+<body>
+<div class="wrapper">
+    <%- include('../partials/sidebar', { active: 'cursos' }) %>
+    <main class="main">
+        <div class="page-header">
+            <div class="page-title"><h1>Cursos</h1><p>Lista de todos os cursos</p></div>
+            <a href="/gestor/cursos/novo" class="btn-add">+ Novo Curso</a>
+        </div>
+        <% if (msg === 'adicionado') { %><div class="alert alert-success" style="margin-bottom:20px;">Curso adicionado com sucesso!</div><% } %>
+        <% if (msg === 'sucesso') { %><div class="alert alert-success" style="margin-bottom:20px;">Curso atualizado com sucesso!</div><% } %>
+        <div class="card" style="margin-bottom:16px;padding:16px 24px;">
+            <form method="GET" style="display:flex;gap:10px;align-items:center;">
+                <input type="text" name="q" value="<%= q %>" placeholder="Pesquisar curso..." style="flex:1;padding:10px 16px;background:var(--bg3);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-size:0.9rem;">
+                <button type="submit" class="btn-add" style="padding:10px 20px;">Pesquisar</button>
+                <% if (q) { %><a href="/gestor/cursos" style="color:var(--text3);text-decoration:none;font-size:0.85rem;">Limpar</a><% } %>
+            </form>
+        </div>
+        <div class="card">
+            <div class="table-wrap">
+                <table>
+                    <thead><tr><th>ID</th><th>Nome</th><th>Estado</th><th>Ações</th></tr></thead>
+                    <tbody>
+                    <% if (cursos.length > 0) { %>
+                        <% cursos.forEach(c => { %>
+                        <tr>
+                            <td><span class="id-badge">#<%= c._id.toString().slice(-6) %></span></td>
+                            <td><strong><%= c.nome %></strong></td>
+                            <td><span class="chip <%= c.ativo ? 'chip-green' : '' %>"><%= c.ativo ? 'Ativo' : 'Inativo' %></span></td>
+                            <td style="display:flex;gap:8px;">
+                                <a href="/gestor/cursos/editar/<%= c._id %>" class="btn-edit">Editar</a>
+                                <a href="/gestor/cursos/desativar/<%= c._id %>" class="<%= c.ativo ? 'btn-delete' : 'btn-enroll' %>" onclick="return confirm('<%= c.ativo ? 'Desativar' : 'Ativar' %> este curso?')"><%= c.ativo ? 'Desativar' : 'Ativar' %></a>
+                            </td>
+                        </tr>
+                        <% }) %>
+                    <% } else { %>
+                        <tr><td colspan="4"><div class="empty-state"><p>Nenhum curso encontrado.</p></div></td></tr>
+                    <% } %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+</div>
+</body>
+</html>

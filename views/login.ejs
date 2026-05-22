@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IPCA Gestão — Acesso</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/login.css">
+</head>
+<body>
+<div class="login-page">
+  <div class="login-outer">
+
+    <!-- BRAND PANEL -->
+    <div class="login-brand">
+      <div>
+        <div class="brand-logo-wrap">
+          <div class="brand-icon">IP</div>
+          <span class="brand-name">IPCA Gestão</span>
+        </div>
+        <div class="status-dot-wrap">
+          <span class="status-dot"></span>
+          Sistema Operacional
+        </div>
+        <div class="brand-main">
+          <h1>Gestão<br><span>Académica</span><br>IPCA</h1>
+          <p>Plataforma integrada de gestão de cursos, inscrições, pautas e fichas de aluno do Instituto Politécnico do Cávado e do Ave.</p>
+        </div>
+        <div class="brand-features">
+          <div class="brand-feature">
+            <div class="bf-icon" style="background:rgba(99,102,241,0.15);">🎓</div>
+            <div>
+              <strong>Cursos & Disciplinas</strong>
+              <p>Gestão completa da oferta curricular</p>
+            </div>
+          </div>
+          <div class="brand-feature">
+            <div class="bf-icon" style="background:rgba(14,165,233,0.15);">📋</div>
+            <div>
+              <strong>Inscrições & Pautas</strong>
+              <p>Matrículas e avaliações centralizadas</p>
+            </div>
+          </div>
+          <div class="brand-feature">
+            <div class="bf-icon" style="background:rgba(168,85,247,0.15);">🔒</div>
+            <div>
+              <strong>Multi-perfil</strong>
+              <p>Aluno, Funcionário e Gestor</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="brand-footer">&copy; 2026 IPCA · Instituto Politécnico do Cávado e do Ave</div>
+    </div>
+
+    <!-- FORM PANEL -->
+    <div class="login-form-panel">
+      <% if (!mostrar_registo) { %>
+
+        <div class="form-panel-header">
+          <h2>Bem-vindo de volta</h2>
+          <p>Entra com as tuas credenciais para aceder ao sistema</p>
+        </div>
+
+        <% if (erro) { %>
+          <div class="alert alert-error"><%= erro %></div>
+        <% } %>
+        <% if (sucesso) { %>
+          <div class="alert alert-success"><%= sucesso %></div>
+        <% } %>
+
+        <form method="POST" action="/login">
+          <div class="field-group">
+            <label>Utilizador</label>
+            <input type="text" name="login" placeholder="nome.utilizador" required autofocus autocomplete="username">
+          </div>
+          <div class="field-group">
+            <label>Palavra-passe</label>
+            <input type="password" name="pwd" placeholder="••••••••" required autocomplete="current-password">
+          </div>
+          <button type="submit" class="btn-primary">Entrar no Sistema →</button>
+        </form>
+
+        <div class="divider">ou</div>
+
+        <div class="form-footer">
+          Ainda não tens conta?
+          <a href="/registo">Criar conta de aluno →</a>
+        </div>
+
+      <% } else { %>
+
+        <div class="form-panel-header">
+          <h2>Criar Conta</h2>
+          <p>Regista-te como aluno para aceder à plataforma</p>
+        </div>
+
+        <% if (locals.erro_registo) { %>
+          <div class="alert alert-error"><%= locals.erro_registo %></div>
+        <% } %>
+
+        <form method="POST" action="/registo">
+          <div class="field-group">
+            <label>Nome de utilizador</label>
+            <input type="text" name="reg_login" placeholder="Ex: joao.silva" required autofocus autocomplete="username">
+          </div>
+          <div class="field-group">
+            <label>Palavra-passe</label>
+            <input type="password" name="reg_pwd" placeholder="Mínimo 8 caracteres" required autocomplete="new-password">
+          </div>
+          <button type="submit" class="btn-primary">Criar Conta</button>
+        </form>
+
+        <div class="form-footer" style="margin-top:18px;">
+          <a href="/login">← Voltar ao Login</a>
+        </div>
+
+      <% } %>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<%- include('../partials/head', { title: 'Pedidos de Matrícula — IPCA Gestão', extraCss: ['form-gestor.css'] }) %>
+<body>
+<div class="wrapper">
+    <%- include('../partials/sidebar', { active: 'inscricoes' }) %>
+    <main class="main">
+        <div class="page-header">
+            <div class="page-title"><h1>Pedidos de Matrícula</h1><p>Aprovar ou rejeitar pedidos de inscrição</p></div>
+        </div>
+        <% if (msg === 'aprovado') { %><div class="alert alert-success" style="margin-bottom:20px;">Pedido aprovado!</div><% } %>
+        <% if (msg === 'rejeitado') { %><div class="alert alert-info" style="margin-bottom:20px;">Pedido rejeitado.</div><% } %>
+        <div style="display:flex;gap:8px;margin-bottom:20px;">
+            <% [['pendente','Pendentes'],['aprovado','Aprovados'],['rejeitado','Rejeitados']].forEach(([val,label]) => { %>
+                <a href="?filtro=<%= val %>" class="chip <%= filtro===val ? 'chip-blue' : '' %>" style="padding:8px 16px;text-decoration:none;<%= filtro!==val?'background:var(--surface);border:1px solid var(--border);color:var(--text2);':'' %>"><%= label %></a>
+            <% }) %>
+        </div>
+        <div class="card">
+            <div class="table-wrap">
+                <table>
+                    <thead><tr><th>Aluno</th><th>Curso</th><th>Data</th><th>Estado</th><th>Ação</th></tr></thead>
+                    <tbody>
+                    <% if (inscricoes.length > 0) { %>
+                        <% inscricoes.forEach(i => { %>
+                        <tr>
+                            <td><strong><%= i.user_login %></strong></td>
+                            <td><span class="chip chip-blue"><%= i.curso_id?.nome || '—' %></span></td>
+                            <td style="color:var(--text2);font-size:0.85rem;"><%= new Date(i.data_pedido).toLocaleDateString('pt-PT') %></td>
+                            <td>
+                                <% const chips = {pendente:'chip-amber',aprovado:'chip-green',rejeitado:''}; %>
+                                <span class="chip <%= chips[i.estado] || '' %>"><%= i.estado %></span>
+                            </td>
+                            <td>
+                                <% if (i.estado === 'pendente') { %>
+                                <form method="POST" action="/funcionario/inscricoes/<%= i._id %>/decidir" style="display:inline;">
+                                    <input type="hidden" name="observacoes" value="">
+                                    <button name="acao" value="aprovar" class="btn-enroll" style="margin-right:4px;">✓ Aprovar</button>
+                                    <button name="acao" value="rejeitar" class="btn-delete" onclick="this.closest('form').querySelector('[name=observacoes]').value=prompt('Motivo (opcional):') || ''">✕ Rejeitar</button>
+                                </form>
+                                <% } else { %>
+                                    <span style="color:var(--text3);font-size:0.8rem;"><%= i.observacoes || '—' %></span>
+                                <% } %>
+                            </td>
+                        </tr>
+                        <% }) %>
+                    <% } else { %>
+                        <tr><td colspan="5"><div class="empty-state"><p>Nenhum pedido encontrado.</p></div></td></tr>
+                    <% } %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+</div>
+</body>
+</html>

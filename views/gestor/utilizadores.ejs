@@ -1,0 +1,71 @@
+<%- include('../partials/head', { title: 'Utilizadores — IPCA Gestão', extraCss: ['utilizadores.css'] }) %>
+<body>
+<div class="wrapper">
+    <%- include('../partials/sidebar', { active: 'users' }) %>
+    <main class="main">
+        <div class="page-header">
+            <div class="page-title"><h1>Utilizadores</h1><p>Gestão de contas do sistema</p></div>
+        </div>
+        <% if (msg === 'adicionado') { %><div class="alert alert-success" style="margin-bottom:20px;">Utilizador criado!</div><% } %>
+        <% if (msg === 'apagado') { %><div class="alert alert-info" style="margin-bottom:20px;">Utilizador eliminado.</div><% } %>
+        <% if (erro) { %><div class="alert alert-error" style="margin-bottom:20px;"><%= erro %></div><% } %>
+
+        <div class="card" style="margin-bottom:20px;">
+            <div class="section-header"><h3>Novo Utilizador</h3></div>
+            <form method="POST" action="/gestor/utilizadores/novo">
+                <div style="display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:12px;align-items:end;">
+                    <div class="form-row" style="margin-bottom:0;">
+                        <label>Utilizador</label>
+                        <input type="text" name="novo_login" placeholder="nome.utilizador" required>
+                    </div>
+                    <div class="form-row" style="margin-bottom:0;">
+                        <label>Password</label>
+                        <input type="password" name="novo_pwd" placeholder="••••••••" required>
+                    </div>
+                    <div class="form-row" style="margin-bottom:0;">
+                        <label>Perfil</label>
+                        <select name="novo_perfil" required>
+                            <option value="aluno">ALUNO</option>
+                            <option value="funcionario">FUNCIONARIO</option>
+                            <option value="gestor">GESTOR</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn-add" style="padding:12px 20px;">Criar</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="card">
+            <div class="table-wrap">
+                <table>
+                    <thead><tr><th>Utilizador</th><th>Perfil</th><th>Ação</th></tr></thead>
+                    <tbody>
+                    <% utilizadores.forEach(u => { %>
+                    <tr>
+                        <td>
+                            <div style="display:flex;align-items:center;gap:10px;">
+                                <div class="user-avatar" style="width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:0.78rem;color:white;background:linear-gradient(135deg,var(--accent),var(--green));">
+                                    <%= u.login.substring(0,2).toUpperCase() %>
+                                </div>
+                                <strong><%= u.login %></strong>
+                                <% if (u.login === user.login) { %><span class="chip chip-blue" style="font-size:0.65rem;">Tu</span><% } %>
+                            </div>
+                        </td>
+                        <td><span class="role-badge <%= u.perfil %>"><%= u.perfil.toUpperCase() %></span></td>
+                        <td>
+                            <% if (u.login !== user.login) { %>
+                            <a href="/gestor/utilizadores/apagar/<%= u.login %>" class="btn-delete" onclick="return confirm('Eliminar este utilizador?')">Eliminar</a>
+                            <% } else { %>
+                            <span style="color:var(--text3);font-size:0.8rem;">—</span>
+                            <% } %>
+                        </td>
+                    </tr>
+                    <% }) %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+</div>
+</body>
+</html>

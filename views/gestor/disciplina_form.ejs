@@ -1,0 +1,23 @@
+<%- include('../partials/head', { title: (disciplina ? 'Editar' : 'Nova') + ' Disciplina — IPCA Gestão', extraCss: ['form-gestor.css'] }) %>
+<body>
+<div class="wrapper">
+    <%- include('../partials/sidebar', { active: 'disciplinas' }) %>
+    <main class="main">
+        <div class="page-header">
+            <div class="page-title"><h1><%= disciplina ? 'Editar Disciplina' : 'Nova Disciplina' %></h1></div>
+        </div>
+        <div class="card form-card">
+            <% if (erro) { %><div class="alert alert-error" style="margin-bottom:20px;"><%= erro %></div><% } %>
+            <form method="POST" action="/gestor/disciplinas/<%= disciplina ? 'editar/' + disciplina._id : 'nova' %>">
+                <div class="form-row">
+                    <label>Nome da Disciplina</label>
+                    <input type="text" name="nome" value="<%= disciplina ? disciplina.nome : '' %>" placeholder="Ex: Programação Web II" required>
+                </div>
+                <button type="submit" class="btn-submit"><%= disciplina ? 'Guardar Alterações' : 'Criar Disciplina' %></button>
+                <a href="/gestor/disciplinas" class="btn-cancel-link">← Cancelar e Voltar</a>
+            </form>
+        </div>
+    </main>
+</div>
+</body>
+</html>

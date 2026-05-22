@@ -1,0 +1,38 @@
+<%- include('../partials/head', { title: 'Inscrições — IPCA Gestão', extraCss: ['form-gestor.css'] }) %>
+<body>
+<div class="wrapper">
+    <%- include('../partials/sidebar', { active: 'inscricoes' }) %>
+    <main class="main">
+        <div class="page-header">
+            <div class="page-title"><h1>Inscrições</h1><p>Todas as inscrições de alunos</p></div>
+            <span class="chip chip-blue" style="padding:8px 16px;font-size:0.85rem;"><%= inscricoes.length %> inscrições</span>
+        </div>
+        <div class="card">
+            <div class="table-wrap">
+                <table>
+                    <thead><tr><th>Aluno</th><th>Curso</th><th>Estado</th><th>Data do Pedido</th><th>Decidido por</th></tr></thead>
+                    <tbody>
+                    <% if (inscricoes.length > 0) { %>
+                        <% inscricoes.forEach(i => { %>
+                        <tr>
+                            <td><strong><%= i.user_login %></strong></td>
+                            <td><span class="chip chip-blue"><%= i.curso_id?.nome || '—' %></span></td>
+                            <td>
+                                <% const chips = {pendente:'chip-amber',aprovado:'chip-green',rejeitado:''}; %>
+                                <span class="chip <%= chips[i.estado] || '' %>"><%= i.estado %></span>
+                            </td>
+                            <td style="color:var(--text2);font-size:0.85rem;"><%= new Date(i.data_pedido).toLocaleDateString('pt-PT') %></td>
+                            <td style="color:var(--text2);font-size:0.85rem;"><%= i.decidido_por || '—' %></td>
+                        </tr>
+                        <% }) %>
+                    <% } else { %>
+                        <tr><td colspan="5"><div class="empty-state"><p>Nenhuma inscrição encontrada.</p></div></td></tr>
+                    <% } %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+</div>
+</body>
+</html>

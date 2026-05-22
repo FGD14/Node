@@ -1,0 +1,88 @@
+<%- include('../partials/head', { title: 'Inscrições — IPCA Gestão', extraCss: ['form-gestor.css'] }) %>
+<body>
+<div class="wrapper">
+    <%- include('../partials/sidebar', { active: 'inscricoes' }) %>
+    <main class="main">
+        <div class="page-header">
+            <div class="page-title"><h1>As Minhas Inscrições</h1><p>Gere as tuas inscrições em cursos</p></div>
+        </div>
+        <% if (msg === 'inscrito') { %><div class="alert alert-success" style="margin-bottom:20px;">Pedido submetido! Aguarda aprovação.</div><% } %>
+        <% if (msg === 'cancelado') { %><div class="alert alert-info" style="margin-bottom:20px;">Inscrição cancelada.</div><% } %>
+        <% if (msg === 'sem_ficha') { %><div class="alert alert-error" style="margin-bottom:20px;">Tens de ter a <strong>ficha aprovada</strong> antes de te poderes inscrever. <a href="/aluno/ficha" style="color:var(--accent2);">Preencher ficha →</a></div><% } %>
+        <% if (!ficha_aprovada) { %>
+            <div class="notice notice-blue" style="margin-bottom:20px;">A tua ficha ainda não foi aprovada. <a href="/aluno/ficha" style="color:var(--accent2);">Clica aqui para a preencher.</a></div>
+        <% } %>
+
+        <div class="card" style="margin-bottom:24px;">
+            <div class="section-header">
+                <h3>Cursos em que estou inscrito</h3>
+                <span class="chip chip-green"><%= inscritos.length %> curso<%= inscritos.length !== 1 ? 's' : '' %></span>
+            </div>
+            <% if (inscritos.length === 0) { %>
+                <div class="empty-state" style="padding:40px;"><p>Ainda não estás inscrito em nenhum curso.</p></div>
+            <% } else { %>
+            <div class="table-wrap">
+                <table>
+                    <thead><tr><th>Curso</th><th>Data do Pedido</th><th>Estado</th><th>Ação</th></tr></thead>
+                    <tbody>
+                    <% inscritos.forEach(i => { %>
+                    <tr>
+                        <td><div style="display:flex;align-items:center;gap:10px;">
+                            <div style="width:8px;height:8px;background:var(--green);border-radius:50%;box-shadow:0 0 6px var(--green);"></div>
+                            <strong><%= i.curso_id?.nome %></strong>
+                        </div></td>
+                        <td style="color:var(--text2);font-size:0.85rem;"><%= new Date(i.data_pedido).toLocaleDateString('pt-PT') %></td>
+                        <td>
+                            <% const chips = {pendente:'chip-amber',aprovado:'chip-green',rejeitado:''}; %>
+                            <span class="chip <%= chips[i.estado] || '' %>"><%= i.estado %></span>
+                        </td>
+                        <td>
+                            <% if (['pendente','rejeitado'].includes(i.estado)) { %>
+                            <form method="POST" action="/aluno/inscricoes/cancelar" style="display:inline;" onsubmit="return confirm('Cancelar esta inscrição?')">
+                                <input type="hidden" name="curso_id" value="<%= i.curso_id._id %>">
+                                <button type="submit" class="btn-delete btn-unenroll">✕ Cancelar</button>
+                            </form>
+                            <% } else { %>
+                                <span style="color:var(--text3);font-size:0.8rem;">—</span>
+                            <% } %>
+                        </td>
+                    </tr>
+                    <% }) %>
+                    </tbody>
+                </table>
+            </div>
+            <% } %>
+        </div>
+
+        <div class="card">
+            <div class="section-header">
+                <h3>Cursos disponíveis</h3>
+                <span class="chip chip-blue"><%= disponiveis.length %> disponível<%= disponiveis.length !== 1 ? 'is' : '' %></span>
+            </div>
+            <% if (disponiveis.length === 0) { %>
+                <div class="empty-state" style="padding:40px;"><p>Já estás inscrito em todos os cursos!</p></div>
+            <% } else { %>
+            <div class="table-wrap">
+                <table>
+                    <thead><tr><th>Curso</th><th>Ação</th></tr></thead>
+                    <tbody>
+                    <% disponiveis.forEach(c => { %>
+                    <tr>
+                        <td><strong><%= c.nome %></strong></td>
+                        <td>
+                            <form method="POST" action="/aluno/inscricoes/inscrever" style="display:inline;">
+                                <input type="hidden" name="curso_id" value="<%= c._id %>">
+                                <button type="submit" class="btn-enroll">+ Inscrever</button>
+                            </form>
+                        </td>
+                    </tr>
+                    <% }) %>
+                    </tbody>
+                </table>
+            </div>
+            <% } %>
+        </div>
+    </main>
+</div>
+</body>
+</html>

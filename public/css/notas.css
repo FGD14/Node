@@ -1,0 +1,50 @@
+/* NOTAS — Frutiger Aero */
+.notas-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; flex-wrap: wrap; gap: 12px; }
+.notas-title { margin: 0; font-size: 24px; font-weight: 900; color: #0e2a45; }
+.notas-title span { color: #4a7aa0; font-weight: 600; font-size: 0.75em; }
+
+.notas-stats { display: grid; grid-template-columns: repeat(auto-fit,minmax(150px,1fr)); gap: 14px; margin-bottom: 20px; }
+.notas-stat {
+  background: linear-gradient(145deg, rgba(255,255,255,0.88), rgba(220,242,255,0.76));
+  border: 1px solid rgba(110,172,230,0.26);
+  border-radius: 16px;
+  padding: 16px;
+  text-align: center;
+  box-shadow: 0 4px 14px rgba(40,110,180,0.09);
+}
+.notas-stat-label { font-size: 11px; font-weight: 700; color: #4a7aa0; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 6px; }
+.notas-stat-value { font-size: 26px; font-weight: 900; color: #0e2a45; }
+
+.notas-table-wrap {
+  background: linear-gradient(145deg, rgba(255,255,255,0.88), rgba(220,242,255,0.76));
+  border: 1px solid rgba(110,172,230,0.26);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 8px 28px rgba(40,110,180,0.10);
+}
+
+.notas-uc-icon {
+  width: 34px; height: 34px; border-radius: 10px; flex-shrink: 0;
+  background: rgba(42,136,214,0.10);
+  border: 1px solid rgba(42,136,214,0.18);
+  display: grid; place-items: center; font-size: 15px;
+}
+.notas-uc-name  { font-size: 14px; font-weight: 700; color: #0e2a45; }
+.notas-uc-code  { font-size: 12px; color: #4a7aa0; }
+
+.notas-bar-wrap { display: flex; align-items: center; gap: 10px; }
+.notas-bar { height: 6px; flex: 1; border-radius: 999px; background: rgba(110,172,230,0.20); overflow: hidden; }
+.notas-bar-fill { height: 100%; border-radius: 999px; background: linear-gradient(90deg,#2a88d6,#5ab5f5); }
+
+.nota-badge {
+  display: inline-flex; align-items: center;
+  padding: 5px 12px; border-radius: 999px;
+  font-size: 12px; font-weight: 800;
+  border: 1px solid transparent;
+}
+.nota-badge.nota-alta  { background: rgba(20,160,80,0.10);  color: #0a4a20; border-color: rgba(20,160,80,0.26); }
+.nota-badge.nota-media { background: rgba(230,150,20,0.12); color: #7a4800; border-color: rgba(220,140,20,0.28); }
+.nota-badge.nota-baixa { background: rgba(200,40,40,0.09);  color: #6e1010; border-color: rgba(200,40,40,0.22); }
+
+.notas-empty       { padding: 36px; text-align: center; color: #4a7aa0; }
+.notas-empty-title { font-size: 16px; font-weight: 700; color: #2c5078; margin-bottom: 8px; }

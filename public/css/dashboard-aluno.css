@@ -1,0 +1,8 @@
+@import url("dashboard-core.css");
+.dashboard-aluno .dashboard-card::before { background: linear-gradient(90deg, #5ab5f5, #38bdf8); }
+.dashboard-aluno .dashboard-panel h3 { color: #1a5a9a; }
+.dashboard-aluno .dashboard-badge { color: #1a5a9a; border-color: rgba(42,136,214,0.30); }
+.dashboard-aluno .dashboard-card-value {
+  background: linear-gradient(135deg, #2a88d6, #5ab5f5);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}

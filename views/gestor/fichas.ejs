@@ -1,0 +1,54 @@
+<%- include('../partials/head', { title: 'Validar Fichas — IPCA Gestão', extraCss: ['validar-fichas.css'] }) %>
+<body>
+<div class="wrapper">
+    <%- include('../partials/sidebar', { active: 'fichas' }) %>
+    <main class="main">
+        <div class="page-header">
+            <div class="page-title"><h1>Fichas de Aluno</h1><p>Validar ou rejeitar fichas submetidas</p></div>
+        </div>
+        <% if (msg === 'aprovada') { %><div class="alert alert-success" style="margin-bottom:20px;">Ficha aprovada!</div><% } %>
+        <% if (msg === 'rejeitada') { %><div class="alert alert-info" style="margin-bottom:20px;">Ficha rejeitada.</div><% } %>
+        <div style="display:flex;gap:8px;margin-bottom:20px;">
+            <% [['submetida','Pendentes'],['aprovada','Aprovadas'],['rejeitada','Rejeitadas'],['rascunho','Rascunhos']].forEach(([val,label]) => { %>
+                <a href="?filtro=<%= val %>" class="chip <%= filtro===val ? 'chip-blue' : '' %>" style="padding:8px 16px;text-decoration:none;<%= filtro!==val?'background:var(--surface);border:1px solid var(--border);color:var(--text2);':'' %>"><%= label %></a>
+            <% }) %>
+        </div>
+        <div class="card">
+            <div class="table-wrap">
+                <table>
+                    <thead><tr><th>Aluno</th><th>Curso Pretendido</th><th>Data</th><th>Estado</th><th>Ação</th></tr></thead>
+                    <tbody>
+                    <% if (fichas.length > 0) { %>
+                        <% fichas.forEach(f => { %>
+                        <tr>
+                            <td><strong><%= f.nome_completo || f.user_login %></strong><br><small style="color:var(--text3)"><%= f.user_login %></small></td>
+                            <td><%= f.curso_pretendido?.nome || '—' %></td>
+                            <td style="color:var(--text2);font-size:0.85rem;"><%= f.atualizado_em ? new Date(f.atualizado_em).toLocaleDateString('pt-PT') : '—' %></td>
+                            <td>
+                                <% const chips = {rascunho:'chip-amber',submetida:'chip-blue',aprovada:'chip-green',rejeitada:''}; %>
+                                <span class="chip <%= chips[f.estado] || '' %>"><%= f.estado %></span>
+                            </td>
+                            <td>
+                                <% if (f.estado === 'submetida') { %>
+                                <form method="POST" action="/gestor/fichas/<%= f._id %>/decidir" style="display:inline;">
+                                    <input type="hidden" name="observacoes" value="">
+                                    <button name="acao" value="aprovar" class="btn-enroll" style="margin-right:4px;">✓ Aprovar</button>
+                                    <button name="acao" value="rejeitar" class="btn-delete" onclick="this.closest('form').querySelector('[name=observacoes]').value=prompt('Motivo (opcional):') || ''">✕ Rejeitar</button>
+                                </form>
+                                <% } else { %>
+                                    <span style="color:var(--text3);font-size:0.8rem;"><%= f.observacoes || '—' %></span>
+                                <% } %>
+                            </td>
+                        </tr>
+                        <% }) %>
+                    <% } else { %>
+                        <tr><td colspan="5"><div class="empty-state"><p>Nenhuma ficha encontrada.</p></div></td></tr>
+                    <% } %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+</div>
+</body>
+</html>

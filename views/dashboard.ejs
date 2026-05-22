@@ -1,0 +1,140 @@
+<%- include('partials/head', { title: 'Dashboard — IPCA Gestão', extraCss: ['dashboard.css', 'dashboard-core.css'] }) %>
+<body>
+<div class="wrapper">
+    <%- include('partials/sidebar', { active: 'dashboard' }) %>
+    <main class="main">
+        <div class="page-header">
+            <div class="page-title">
+                <h1>Dashboard</h1>
+                <p><%= new Date().toLocaleDateString('pt-PT', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) %></p>
+            </div>
+        </div>
+
+        <div class="welcome-banner">
+            <h2>Bem-vindo, <%= user.login %>!</h2>
+            <p>
+                <% if (user.perfil === 'gestor') { %>Tens acesso completo ao sistema. Gere utilizadores, cursos, disciplinas e fichas.
+                <% } else if (user.perfil === 'funcionario') { %>Gere os pedidos de matrícula e as pautas de avaliação.
+                <% } else { %>Consulta os teus cursos e planos de estudo. Inscreve-te em cursos disponíveis.
+                <% } %>
+            </p>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="glow" style="background:var(--accent);"></div>
+                <div class="icon" style="background:var(--accent-glow);">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent2)" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/></svg>
+                </div>
+                <div class="value"><%= total_cursos %></div>
+                <div class="label">Cursos</div>
+            </div>
+            <div class="stat-card">
+                <div class="glow" style="background:var(--green);"></div>
+                <div class="icon" style="background:var(--green-glow);">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                </div>
+                <div class="value"><%= total_disciplinas %></div>
+                <div class="label">Disciplinas</div>
+            </div>
+            <div class="stat-card">
+                <div class="glow" style="background:#f59e0b;"></div>
+                <div class="icon" style="background:rgba(251,191,36,0.1);">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2"><path d="M9 11l3 3L22 4"/></svg>
+                </div>
+                <div class="value"><%= total_planos %></div>
+                <div class="label">Planos</div>
+            </div>
+            <% if (user.perfil === 'gestor') { %>
+            <div class="stat-card">
+                <div class="value"><%= total_users %></div>
+                <div class="label">Utilizadores</div>
+            </div>
+            <div class="stat-card">
+                <div class="value"><%= total_inscricoes %></div>
+                <div class="label">Inscrições</div>
+            </div>
+            <% } else if (user.perfil === 'funcionario') { %>
+            <div class="stat-card">
+                <div class="value"><%= pendentes %></div>
+                <div class="label">Pedidos Pendentes</div>
+            </div>
+            <div class="stat-card">
+                <div class="value"><%= total_pautas %></div>
+                <div class="label">Pautas</div>
+            </div>
+            <% } else { %>
+            <div class="stat-card">
+                <div class="value"><%= minhas_inscricoes %></div>
+                <div class="label">As Minhas Inscrições</div>
+            </div>
+            <% } %>
+        </div>
+
+        <div style="margin-bottom:12px;">
+            <h3 style="font-family:'Syne',sans-serif;font-size:0.95rem;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:14px;">Acesso Rápido</h3>
+        </div>
+        <div class="quick-actions">
+            <% if (user.perfil === 'gestor') { %>
+            <a href="/gestor/cursos" class="quick-action">
+                <div class="qa-icon" style="background:var(--accent-glow);">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent2)" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/></svg>
+                </div>
+                <div><div class="qa-title">Cursos</div><div class="qa-sub">Gerir cursos</div></div>
+            </a>
+            <a href="/gestor/disciplinas" class="quick-action">
+                <div class="qa-icon" style="background:var(--green-glow);">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/></svg>
+                </div>
+                <div><div class="qa-title">Disciplinas</div><div class="qa-sub">Gerir disciplinas</div></div>
+            </a>
+            <a href="/gestor/fichas" class="quick-action">
+                <div class="qa-icon" style="background:rgba(167,139,250,0.1);">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#c4b5fd" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                </div>
+                <div><div class="qa-title">Validar Fichas</div><div class="qa-sub">Fichas submetidas</div></div>
+            </a>
+            <a href="/gestor/utilizadores" class="quick-action">
+                <div class="qa-icon" style="background:rgba(167,139,250,0.1);">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#c4b5fd" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                </div>
+                <div><div class="qa-title">Utilizadores</div><div class="qa-sub">Gerir contas</div></div>
+            </a>
+            <% } else if (user.perfil === 'funcionario') { %>
+            <a href="/funcionario/inscricoes" class="quick-action">
+                <div class="qa-icon" style="background:var(--green-glow);">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/></svg>
+                </div>
+                <div><div class="qa-title">Pedidos de Matrícula</div><div class="qa-sub">Aprovar/rejeitar</div></div>
+            </a>
+            <a href="/funcionario/pautas" class="quick-action">
+                <div class="qa-icon" style="background:rgba(251,191,36,0.1);">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/></svg>
+                </div>
+                <div><div class="qa-title">Pautas</div><div class="qa-sub">Gerir pautas</div></div>
+            </a>
+            <% } else { %>
+            <a href="/aluno/ficha" class="quick-action">
+                <div class="qa-icon" style="background:var(--accent-glow);">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent2)" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                </div>
+                <div><div class="qa-title">Ficha de Aluno</div><div class="qa-sub">Preencher ficha</div></div>
+            </a>
+            <a href="/aluno/inscricoes" class="quick-action">
+                <div class="qa-icon" style="background:var(--green-glow);">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/></svg>
+                </div>
+                <div><div class="qa-title">Inscrições</div><div class="qa-sub">Gerir inscrições</div></div>
+            </a>
+            <a href="/aluno/notas" class="quick-action">
+                <div class="qa-icon" style="background:rgba(251,191,36,0.1);">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2"><path d="M9 11l3 3L22 4"/></svg>
+                </div>
+                <div><div class="qa-title">Notas</div><div class="qa-sub">Ver resultados</div></div>
+            </a>
+            <% } %>
+        </div>
+    </main>
+</div>
+</body>
+</html>

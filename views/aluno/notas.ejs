@@ -1,0 +1,44 @@
+<%- include('../partials/head', { title: 'As Minhas Notas — IPCA Gestão', extraCss: ['notas.css'] }) %>
+<body>
+<div class="wrapper">
+    <%- include('../partials/sidebar', { active: 'notas' }) %>
+    <main class="main">
+        <div class="page-header">
+            <div class="page-title"><h1>As Minhas Notas</h1><p>Resultados das avaliações</p></div>
+        </div>
+        <div class="card">
+            <div class="table-wrap">
+                <table>
+                    <thead><tr><th>Disciplina</th><th>Ano Letivo</th><th>Época</th><th>Nota</th><th>Resultado</th></tr></thead>
+                    <tbody>
+                    <% if (notas.length > 0) { %>
+                        <% notas.forEach(n => { %>
+                        <tr>
+                            <td><strong><%= n.pauta_id?.disciplina_id?.nome || '—' %></strong></td>
+                            <td><%= n.pauta_id?.ano_letivo || '—' %></td>
+                            <td><%= n.pauta_id?.epoca || '—' %></td>
+                            <td><strong style="font-size:1.1rem;"><%= n.nota !== null && n.nota !== undefined ? n.nota : '—' %></strong></td>
+                            <td>
+                                <% if (n.nota !== null && n.nota !== undefined) { %>
+                                    <% if (n.nota >= 9.5) { %>
+                                        <span class="chip chip-green">Aprovado</span>
+                                    <% } else { %>
+                                        <span class="chip" style="background:rgba(248,113,113,0.1);color:var(--red);border:1px solid rgba(248,113,113,0.2);">Reprovado</span>
+                                    <% } %>
+                                <% } else { %>
+                                    <span style="color:var(--text3);">Sem nota</span>
+                                <% } %>
+                            </td>
+                        </tr>
+                        <% }) %>
+                    <% } else { %>
+                        <tr><td colspan="5"><div class="empty-state"><p>Ainda não tens notas registadas.</p></div></td></tr>
+                    <% } %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+</div>
+</body>
+</html>

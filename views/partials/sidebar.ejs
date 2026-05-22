@@ -1,0 +1,107 @@
+<div class="sidebar">
+    <div class="sidebar-logo">
+        <div class="logo-mark">
+            <div class="logo-icon">IP</div>
+            <h2>IPCA Gestão</h2>
+        </div>
+        <p>Gestão Académica</p>
+    </div>
+
+    <div class="sidebar-nav">
+        <div class="nav-section">
+            <div class="nav-section-label">Principal</div>
+            <a href="/dashboard" class="nav-item <%= active === 'dashboard' ? 'active' : '' %>">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                <span>Dashboard</span>
+            </a>
+            <% if (user.perfil === 'gestor') { %>
+            <a href="/gestor/utilizadores" class="nav-item <%= active === 'users' ? 'active' : '' %>">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                <span>Utilizadores</span>
+            </a>
+            <% } %>
+        </div>
+
+        <div class="nav-section">
+            <div class="nav-section-label">Académico</div>
+            <a href="<%= user.perfil === 'gestor' ? '/gestor/cursos' : '/aluno/inscricoes' %>" class="nav-item <%= active === 'cursos' ? 'active' : '' %>">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/></svg>
+                <span>Cursos</span>
+            </a>
+            <% if (user.perfil === 'gestor') { %>
+            <a href="/gestor/disciplinas" class="nav-item <%= active === 'disciplinas' ? 'active' : '' %>">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                <span>Disciplinas</span>
+            </a>
+            <a href="/gestor/planos" class="nav-item <%= active === 'planos' ? 'active' : '' %>">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/></svg>
+                <span>Planos de Estudo</span>
+            </a>
+            <% } %>
+        </div>
+
+        <% if (user.perfil === 'aluno') { %>
+        <div class="nav-section">
+            <div class="nav-section-label">O Meu Espaço</div>
+            <a href="/aluno/ficha" class="nav-item <%= active === 'ficha' ? 'active' : '' %>">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                <span>Ficha de Aluno</span>
+            </a>
+            <a href="/aluno/inscricoes" class="nav-item <%= active === 'inscricoes' ? 'active' : '' %>">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/></svg>
+                <span>As Minhas Inscrições</span>
+            </a>
+            <a href="/aluno/notas" class="nav-item <%= active === 'notas' ? 'active' : '' %>">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/></svg>
+                <span>As Minhas Notas</span>
+            </a>
+        </div>
+        <% } %>
+
+        <% if (user.perfil === 'gestor') { %>
+        <div class="nav-section">
+            <div class="nav-section-label">Gestão Pedagógica</div>
+            <a href="/gestor/fichas" class="nav-item <%= active === 'fichas' ? 'active' : '' %>">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                <span>Validar Fichas</span>
+            </a>
+            <a href="/gestor/inscricoes" class="nav-item <%= active === 'inscricoes' ? 'active' : '' %>">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/></svg>
+                <span>Inscrições</span>
+            </a>
+        </div>
+        <% } %>
+
+        <% if (user.perfil === 'funcionario') { %>
+        <div class="nav-section">
+            <div class="nav-section-label">Serviços Académicos</div>
+            <a href="/funcionario/inscricoes" class="nav-item <%= active === 'inscricoes' ? 'active' : '' %>">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/></svg>
+                <span>Pedidos de Matrícula</span>
+            </a>
+            <a href="/funcionario/pautas" class="nav-item <%= active === 'pautas' ? 'active' : '' %>">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                <span>Pautas de Avaliação</span>
+            </a>
+        </div>
+        <% } %>
+
+        <div class="nav-section">
+            <a href="/logout" class="nav-item danger">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+                <span>Sair do Sistema</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="sidebar-footer">
+        <div class="user-pill">
+            <div class="user-avatar"><%= user.login.substring(0,2).toUpperCase() %></div>
+            <div class="user-info">
+                <div class="name"><%= user.login %></div>
+                <div class="role"><%= user.perfil %></div>
+            </div>
+            <span class="role-badge <%= user.perfil %>"><%= user.perfil.toUpperCase() %></span>
+        </div>
+    </div>
+</div>

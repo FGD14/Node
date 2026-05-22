@@ -1,0 +1,68 @@
+/* PAUTAS — Frutiger Aero */
+.pautas-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; flex-wrap: wrap; gap: 12px; }
+.pautas-title { margin: 0; font-size: 24px; font-weight: 900; color: #0e2a45; }
+.pautas-title span { color: #4a7aa0; font-weight: 600; font-size: 0.75em; }
+
+.pautas-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px,1fr)); gap: 16px; }
+
+.pauta-card {
+  background: linear-gradient(145deg, rgba(255,255,255,0.88), rgba(220,242,255,0.76));
+  border: 1px solid rgba(110,172,230,0.26);
+  border-radius: 18px;
+  padding: 20px;
+  box-shadow: 0 6px 20px rgba(40,110,180,0.09);
+  transition: transform 0.20s, box-shadow 0.20s;
+  backdrop-filter: blur(10px);
+}
+.pauta-card:hover { transform: translateY(-4px); box-shadow: 0 14px 36px rgba(40,110,180,0.14); }
+
+.pauta-uc      { font-size: 16px; font-weight: 800; color: #0e2a45; margin: 0 0 4px; }
+.pauta-uc-code { font-size: 12px; color: #4a7aa0; margin: 0 0 14px; }
+.pauta-meta    { display: grid; gap: 8px; margin-bottom: 16px; }
+.pauta-meta-item { display: flex; align-items: center; gap: 8px; font-size: 13px; color: #2c5078; }
+.pauta-meta-icon {
+  width: 28px; height: 28px; border-radius: 8px;
+  background: rgba(200,232,255,0.55);
+  display: grid; place-items: center; font-size: 13px; flex-shrink: 0;
+}
+
+.pauta-estado {
+  display: inline-flex; align-items: center;
+  padding: 5px 12px; border-radius: 999px;
+  font-size: 11px; font-weight: 800;
+  border: 1px solid transparent;
+}
+.pauta-estado.aberta    { background: rgba(230,150,20,0.12); color: #7a4800; border-color: rgba(220,140,20,0.28); }
+.pauta-estado.fechada   { background: rgba(100,120,140,0.10); color: #3a4f60; border-color: rgba(100,120,140,0.22); }
+.pauta-estado.publicada { background: rgba(20,160,80,0.10);  color: #0a4a20; border-color: rgba(20,160,80,0.26); }
+
+.pauta-notas-wrap {
+  background: linear-gradient(145deg, rgba(255,255,255,0.88), rgba(220,242,255,0.76));
+  border: 1px solid rgba(110,172,230,0.26);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 8px 28px rgba(40,110,180,0.10);
+}
+
+.nota-input {
+  width: 90px;
+  padding: 7px 10px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.80);
+  border: 1px solid rgba(110,172,230,0.30);
+  color: #0e2a45;
+  font-size: 14px;
+  text-align: center;
+}
+.nota-input:focus { border-color: #2a88d6; box-shadow: 0 0 0 3px rgba(42,136,214,0.14); background: #fff; outline: none; }
+
+.pautas-empty {
+  background: linear-gradient(145deg, rgba(255,255,255,0.88), rgba(220,242,255,0.76));
+  border: 1px solid rgba(110,172,230,0.26);
+  border-radius: 20px;
+  padding: 40px;
+  text-align: center;
+  color: #4a7aa0;
+  box-shadow: 0 8px 28px rgba(40,110,180,0.10);
+}
+.pautas-empty-title { font-size: 17px; font-weight: 700; color: #2c5078; margin-bottom: 10px; }

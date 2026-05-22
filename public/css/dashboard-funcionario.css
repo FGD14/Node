@@ -1,0 +1,8 @@
+@import url("dashboard-core.css");
+.dashboard-funcionario .dashboard-card::before { background: linear-gradient(90deg, #f59e0b, #f97316); }
+.dashboard-funcionario .dashboard-panel h3 { color: #7a3d00; }
+.dashboard-funcionario .dashboard-badge { color: #7a3d00; border-color: rgba(200,130,20,0.30); }
+.dashboard-funcionario .dashboard-card-value {
+  background: linear-gradient(135deg, #d97706, #f97316);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}

@@ -1,0 +1,45 @@
+<%- include('../partials/head', { title: 'Disciplinas — IPCA Gestão', extraCss: ['form-gestor.css'] }) %>
+<body>
+<div class="wrapper">
+    <%- include('../partials/sidebar', { active: 'disciplinas' }) %>
+    <main class="main">
+        <div class="page-header">
+            <div class="page-title"><h1>Disciplinas</h1><p>Lista de todas as disciplinas</p></div>
+            <a href="/gestor/disciplinas/nova" class="btn-add">+ Nova Disciplina</a>
+        </div>
+        <% if (msg === 'adicionado') { %><div class="alert alert-success" style="margin-bottom:20px;">Disciplina adicionada!</div><% } %>
+        <% if (msg === 'sucesso') { %><div class="alert alert-success" style="margin-bottom:20px;">Disciplina atualizada!</div><% } %>
+        <div class="card" style="margin-bottom:16px;padding:16px 24px;">
+            <form method="GET" style="display:flex;gap:10px;align-items:center;">
+                <input type="text" name="q" value="<%= q %>" placeholder="Pesquisar disciplina..." style="flex:1;padding:10px 16px;background:var(--bg3);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-size:0.9rem;">
+                <button type="submit" class="btn-add" style="padding:10px 20px;">Pesquisar</button>
+                <% if (q) { %><a href="/gestor/disciplinas" style="color:var(--text3);text-decoration:none;font-size:0.85rem;">Limpar</a><% } %>
+            </form>
+        </div>
+        <div class="card">
+            <div class="table-wrap">
+                <table>
+                    <thead><tr><th>ID</th><th>Nome</th><th>Ações</th></tr></thead>
+                    <tbody>
+                    <% if (disciplinas.length > 0) { %>
+                        <% disciplinas.forEach(d => { %>
+                        <tr>
+                            <td><span class="id-badge">#<%= d._id.toString().slice(-6) %></span></td>
+                            <td><%= d.nome %></td>
+                            <td style="display:flex;gap:8px;">
+                                <a href="/gestor/disciplinas/editar/<%= d._id %>" class="btn-edit">Editar</a>
+                                <a href="/gestor/disciplinas/apagar/<%= d._id %>" class="btn-delete" onclick="return confirm('Eliminar esta disciplina?')">Eliminar</a>
+                            </td>
+                        </tr>
+                        <% }) %>
+                    <% } else { %>
+                        <tr><td colspan="3"><div class="empty-state"><p>Nenhuma disciplina encontrada.</p></div></td></tr>
+                    <% } %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+</div>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<%- include('../partials/head', { title: 'Novo Plano — IPCA Gestão', extraCss: ['form-gestor.css'] }) %>
+<body>
+<div class="wrapper">
+    <%- include('../partials/sidebar', { active: 'planos' }) %>
+    <main class="main">
+        <div class="page-header">
+            <div class="page-title"><h1>Novo Plano de Estudo</h1><p>Associar disciplina a um curso</p></div>
+        </div>
+        <div class="card form-card">
+            <% if (erro) { %><div class="alert alert-error" style="margin-bottom:20px;"><%= erro %></div><% } %>
+            <form method="POST" action="/gestor/planos/novo">
+                <div class="form-row">
+                    <label>Curso</label>
+                    <select name="curso_id" required>
+                        <option value="">Seleciona um curso...</option>
+                        <% cursos.forEach(c => { %><option value="<%= c._id %>"><%= c.nome %></option><% }) %>
+                    </select>
+                </div>
+                <div class="form-row">
+                    <label>Disciplina</label>
+                    <select name="disciplina_id" required>
+                        <option value="">Seleciona uma disciplina...</option>
+                        <% disciplinas.forEach(d => { %><option value="<%= d._id %>"><%= d.nome %></option><% }) %>
+                    </select>
+                </div>
+                <button type="submit" class="btn-submit">Criar Plano</button>
+                <a href="/gestor/planos" class="btn-cancel-link">← Cancelar e Voltar</a>
+            </form>
+        </div>
+    </main>
+</div>
+</body>
+</html>

@@ -1,0 +1,37 @@
+/* VALIDAR FICHAS — Frutiger Aero */
+.vf-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; flex-wrap: wrap; gap: 12px; }
+.vf-title { margin: 0; font-size: 24px; font-weight: 900; color: #0e2a45; }
+.vf-title span { color: #4a7aa0; font-weight: 600; font-size: 0.75em; }
+.vf-count {
+  padding: 5px 12px; border-radius: 999px;
+  font-size: 12px; font-weight: 800;
+  background: rgba(230,150,20,0.12); color: #7a4800; border: 1px solid rgba(220,140,20,0.28);
+}
+
+.vf-table-wrap {
+  background: linear-gradient(145deg, rgba(255,255,255,0.88), rgba(220,242,255,0.76));
+  border: 1px solid rgba(110,172,230,0.26);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 8px 28px rgba(40,110,180,0.10);
+}
+
+.vf-avatar {
+  width: 36px; height: 36px; border-radius: 50%;
+  display: grid; place-items: center;
+  font-size: 13px; font-weight: 800;
+  background: rgba(230,150,20,0.12); color: #7a4800;
+  border: 1px solid rgba(220,140,20,0.26);
+}
+.vf-aluno-name { font-size: 14px; font-weight: 700; color: #0e2a45; }
+.vf-aluno-id   { font-size: 12px; color: #4a7aa0; }
+.vf-status {
+  display: inline-flex; align-items: center;
+  padding: 5px 12px; border-radius: 999px;
+  font-size: 11px; font-weight: 800; border: 1px solid transparent;
+}
+.vf-status.submetida { background: rgba(230,150,20,0.12); color: #7a4800; border-color: rgba(220,140,20,0.28); }
+.vf-status.aprovada  { background: rgba(20,160,80,0.10);  color: #0a4a20; border-color: rgba(20,160,80,0.26); }
+.vf-status.rejeitada { background: rgba(200,40,40,0.09);  color: #6e1010; border-color: rgba(200,40,40,0.22); }
+.vf-empty { padding: 36px; text-align: center; color: #4a7aa0; }
+.vf-empty-title { font-size: 16px; font-weight: 700; color: #2c5078; margin-bottom: 8px; }
